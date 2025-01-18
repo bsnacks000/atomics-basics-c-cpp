@@ -2,8 +2,9 @@
 #include <stdio.h>
 #include <stdlib.h>
 
+#ifdef __linux__
 #define SPIN
-
+#endif
 // XXX spinlock only available in linux
 
 typedef struct {
@@ -83,7 +84,7 @@ int main(void) {
   }
 #endif
 
-  printf("value: %lu\n", d.value);
+  printf("value: %llu\n", d.value);
 
   return 0;
 }

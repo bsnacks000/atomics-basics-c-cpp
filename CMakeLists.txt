@@ -35,9 +35,9 @@ target_compile_options(acqrel PRIVATE -Wall -Wpedantic -Werror -Wextra)
 add_executable(acqrelax acqrelax.cpp)
 target_compile_options(acqrelax PRIVATE -Wall -Wpedantic -Werror -Wextra)
 
-# add_executable(spinner spinner.c)
-# target_link_libraries(spinner PRIVATE pthread)
-# target_compile_options(spinner PRIVATE -Wall -Wpedantic -Werror -Wextra -std=gnu17)
+add_executable(spinner spinner.c)
+target_link_libraries(spinner PRIVATE pthread)
+target_compile_options(spinner PRIVATE -Wall -Wpedantic -Werror -Wextra -std=gnu17)
 
 add_executable(ringbuf ringbuf.cpp)
 target_compile_options(ringbuf PRIVATE -Wall -Wpedantic -Werror -Wextra -std=c++20)
