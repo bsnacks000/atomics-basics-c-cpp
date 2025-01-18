@@ -6,7 +6,13 @@
 // https://www.youtube.com/watch?v=rmGJc9PXpuE
 // https://rigtorp.se/spinlock/
 
-#include <immintrin.h>  // would need to also include ARM instructrions since this is for intel.
+// Platform-specific includes for intrinsics
+#ifdef __x86_64__  // Intel x86-64 (includes Intel intrinsics)
+#include <immintrin.h>
+#elif defined(__aarch64__)  // ARM 64-bit (Apple Silicon)
+#include <arm_neon.h>
+#endif
+
 #include <atomic>
 #include <new>
 
@@ -33,20 +39,39 @@ class ttas_spinlock {
       }
       int count = 0;
       while (flag_.load(std::memory_order_relaxed)) {
-        _mm_pause();
+#ifdef __x86_64__
+        _mm_pause();  // Intel intrinsic
+#elif defined(__aarch64__)
+        __asm__ volatile("yield");  // ARM intrinsic (Apple Silicon)
+#endif
         count++;
         if (count > 16) {
+#ifdef __x86_64__
           _mm_pause();
           _mm_pause();
           _mm_pause();
+#elif defined(__aarch64__)
+          __asm__ volatile("yield");  // Exponential backoff on ARM as well
+          __asm__ volatile("yield");
+          __asm__ volatile("yield");
+#endif
         }
         if (count > 1000) {
+#ifdef __x86_64__
           _mm_pause();
           _mm_pause();
           _mm_pause();
           _mm_pause();
           _mm_pause();
           _mm_pause();
+#elif defined(__aarch64__)
+          __asm__ volatile("yield");
+          __asm__ volatile("yield");
+          __asm__ volatile("yield");
+          __asm__ volatile("yield");
+          __asm__ volatile("yield");
+          __asm__ volatile("yield");
+#endif
         }
       }
     }

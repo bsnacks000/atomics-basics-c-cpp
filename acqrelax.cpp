@@ -14,8 +14,7 @@ void write_x_then_y() {
 
 void read_y_then_x() {
   // this synchronizes with the load
-  while (!y.load(std::memory_order_acquire))
-    ;
+  while (!y.load(std::memory_order_acquire));
 
   // this will always be true 100% because
   // x.store happened before y.store and y.store is syncd

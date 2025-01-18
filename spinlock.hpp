@@ -9,8 +9,7 @@ class spinlock_mutex {
 
   void lock() {
     // spin until old value is false, meaning this thread called clear
-    while (flag_.test_and_set(std::memory_order_acquire))
-      ;
+    while (flag_.test_and_set(std::memory_order_acquire));
   }
 
   void unlock() { flag_.clear(std::memory_order_release); }

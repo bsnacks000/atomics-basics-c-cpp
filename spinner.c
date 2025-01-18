@@ -4,6 +4,8 @@
 
 #define SPIN
 
+// XXX spinlock only available in linux
+
 typedef struct {
   u_int64_t value;
 #ifdef SPIN

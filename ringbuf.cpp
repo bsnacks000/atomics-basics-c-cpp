@@ -90,12 +90,10 @@ int main(void) {
 
   for (int i = 0; i < 100; i++) {
     bool res = buf.write(&objects[0]);
-    if (!res)
-      throw "buf.write false";
+    if (!res) throw "buf.write false";
 
     obj* o;
     res = buf.read(&o);
-    if (!res)
-      throw "buf.read false";
+    if (!res) throw "buf.read false";
   }
 }

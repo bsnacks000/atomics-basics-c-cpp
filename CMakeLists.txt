@@ -2,8 +2,11 @@ cmake_minimum_required(VERSION 3.26)
 
 project(atomics VERSION 0.1.0 DESCRIPTION "generic atomic data structures" LANGUAGES C CXX)
 
-set(CMAKE_CXX_STANDARD_REQUIRED 17)
-set(CMAKE_C_STANDARD_REQUIRED 17)
+set(CMAKE_CXX_STANDARD 17)
+set(CMAKE_CXX_STANDARD_REQUIRED ON)
+
+set(CMAKE_C_REQUIRED 17)
+set(CMAKE_C_STANDARD_REQUIRED ON)
 
 if(NOT CMAKE_BUILD_TYPE OR CMAKE_BUILD_TYPE STREQUAL "")
     set(CMAKE_BUILD_TYPE "Release" CACHE STRING "" FORCE)
@@ -32,9 +35,9 @@ target_compile_options(acqrel PRIVATE -Wall -Wpedantic -Werror -Wextra)
 add_executable(acqrelax acqrelax.cpp)
 target_compile_options(acqrelax PRIVATE -Wall -Wpedantic -Werror -Wextra)
 
-add_executable(spinner spinner.c)
-target_link_libraries(spinner PRIVATE pthread)
-target_compile_options(spinner PRIVATE -Wall -Wpedantic -Werror -Wextra -std=gnu17)
+# add_executable(spinner spinner.c)
+# target_link_libraries(spinner PRIVATE pthread)
+# target_compile_options(spinner PRIVATE -Wall -Wpedantic -Werror -Wextra -std=gnu17)
 
 add_executable(ringbuf ringbuf.cpp)
 target_compile_options(ringbuf PRIVATE -Wall -Wpedantic -Werror -Wextra -std=c++20)

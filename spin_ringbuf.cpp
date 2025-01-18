@@ -1,12 +1,12 @@
-#include <mutex>
-#include "ringbuf.hpp"
-#include "ttas_spinlock.hpp"
-
 #include <chrono>
 #include <cstdlib>
+#include <mutex>
 #include <string>
 #include <thread>
 #include <vector>
+
+#include "ringbuf.hpp"
+#include "ttas_spinlock.hpp"
 
 #define MESSAGE_COUNT 100
 
